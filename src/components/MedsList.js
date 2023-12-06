@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; 
-// ... (other imports)
+import "./MedsList.css";
+import Medicineitem from './Medicineitem'; // Assuming Medicineitem is your component
 
 const MedsList = () => {
   const [medicines, setMedicines] = useState([]);
@@ -20,15 +21,28 @@ const MedsList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Medicines List</h2>
-      <ul>
-        {medicines.map(medicine => (
-          <li key={medicine.medId}>
-            <Link to={`/meds/${medicine.medId}`}>{medicine.medName}</Link>
-          </li>
-        ))}
-      </ul>
+    <div className="cardsmed">
+      <h1>MEDICINE INFORMATION</h1>
+      <div className="cards__container">
+        <div className="cards__wrapper">
+          <ul className="cards__items">
+            {medicines.map(medicine => (
+              <li key={medicine.medId}>
+                <Medicineitem
+                  src={medicine.image} // Replace 'src' with the image field in your model
+                  text={medicine.medName} // Replace 'text' with the name field in your model
+                  label="Medicine" // Label or any specific information
+                  path={`/meds/${medicine.medId}`} // Path based on the ID
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <Link to="/add" className="link-button">
+        Add New Medicine
+      </Link>
     </div>
   );
 };
